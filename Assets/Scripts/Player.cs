@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private float _scaleSpeed;
-    [SerializeField] private float _min, _max;
-    private Rigidbody rb;
+     private float _speed = 390f;
+     private float _scaleSpeed = 0.06f;
+     private float _min = 0.5f, _max = 2f;
+
+    public AudioSource Audio;
+    private Rigidbody Rb;
 
     private Vector3 _maxScaleR,_minScaleL;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        Rb = GetComponent<Rigidbody>();
+        Audio = GetComponent<AudioSource>();
         _maxScaleR = new Vector3(_min, _max,0.5f);
         _minScaleL = new Vector3(_max, _min,0.5f);
     }
@@ -30,7 +33,7 @@ public class Player : MonoBehaviour
 
     private void PlayerMovement()
     {
-        rb.velocity = new Vector3(rb.velocity.x,rb.velocity.y,_speed * Time.deltaTime);
+        Rb.velocity = new Vector3(Rb.velocity.x,Rb.velocity.y,_speed * Time.deltaTime);
     }
     private void PlayerController()
     {
@@ -47,11 +50,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Object")
         {
-            Debug.Log("Point");
+            Audio.Play();
         }
     }
 

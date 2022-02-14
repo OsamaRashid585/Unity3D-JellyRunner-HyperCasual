@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
      private float _speed = 390f;
@@ -55,6 +55,14 @@ public class Player : MonoBehaviour
         if(other.tag == "Object")
         {
             Audio.Play();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Piller"))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 

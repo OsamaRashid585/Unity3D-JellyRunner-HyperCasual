@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
      private float _scaleSpeed = 0.06f;
      private float _min = 0.5f, _max = 2f;
 
-    public AudioSource Audio;
     private Rigidbody Rb;
 
     private Vector3 _maxScaleR,_minScaleL;
@@ -16,7 +15,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
-        Audio = GetComponent<AudioSource>();
         _maxScaleR = new Vector3(_min, _max,0.5f);
         _minScaleL = new Vector3(_max, _min,0.5f);
     }
@@ -47,14 +45,6 @@ public class Player : MonoBehaviour
             transform.localScale -= new Vector3(0f, _scaleSpeed, 0f);
             transform.localScale += new Vector3(_scaleSpeed, 0f, 0f);
 
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.tag == "Object")
-        {
-            Audio.Play();
         }
     }
 

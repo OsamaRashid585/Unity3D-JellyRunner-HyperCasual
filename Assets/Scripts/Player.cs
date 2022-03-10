@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
      private float _moveSpeed = 390f;
-     private float _scaleSpeed = 0.02f;
+     private float _scaleSpeed = 0.05f;
      private float _min = 0.5f, _max = 2f;
     [SerializeField] private ParticleSystem _explosion;
 

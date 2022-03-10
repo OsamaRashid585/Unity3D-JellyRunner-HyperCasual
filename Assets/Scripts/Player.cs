@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
      private float _moveSpeed = 390f;
-     private float _scaleSpeed = 0.05f;
-     private float _min = 0.5f, _max = 2f;
+     private float _scaleSpeed = 0.03f;
     [SerializeField] private ParticleSystem _explosion;
 
     private Rigidbody Rb;
@@ -16,14 +15,15 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
-        _verticalScale = new Vector3(_min, _max,0.5f);
-        _horizontalScale = new Vector3(_max, _min,0.5f);
+        _verticalScale = new Vector3(0.5f, 2,0.5f);
+        _horizontalScale = new Vector3(2, 0.5f,0.5f);
         _explosion.Stop();
     }
 
     void Update()
     {
         PlayerController();
+        
     }
 
     private void FixedUpdate()
@@ -44,15 +44,15 @@ public class Player : MonoBehaviour
      Summary */
     private void PlayerController()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && transform.localScale != _verticalScale)
+        var MousePosY = Input.GetAxis("Mouse Y");
+        var IsGrab = Input.GetKey(KeyCode.Mouse0);
+        if (MousePosY > 0 && IsGrab)
         {
-            transform.localScale += new Vector3(0f, _scaleSpeed, 0f);
-            transform.localScale -= new Vector3(_scaleSpeed, 0f, 0f);
+           transform.localScale = Vector3.Lerp(transform.localScale,_verticalScale, _scaleSpeed);
         }
-        else if (Input.GetKey(KeyCode.Mouse1) && transform.localScale != _horizontalScale)
+        else if (MousePosY < 0 && IsGrab)
         {
-            transform.localScale -= new Vector3(0f, _scaleSpeed, 0f);
-            transform.localScale += new Vector3(_scaleSpeed, 0f, 0f);
+           transform.localScale = Vector3.Lerp(transform.localScale, _horizontalScale, _scaleSpeed);
 
         }
     }

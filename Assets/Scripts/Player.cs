@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
      private float _moveSpeed = 390f;
-     private float _scaleSpeed = 0.03f;
+     private float _scaleSpeed = 5f;
     [SerializeField] private ParticleSystem _explosion;
 
     private Rigidbody Rb;
@@ -48,11 +48,11 @@ public class Player : MonoBehaviour
         var IsGrab = Input.GetKey(KeyCode.Mouse0);
         if (MousePosY > 0 && IsGrab)
         {
-           transform.localScale = Vector3.Lerp(transform.localScale,_verticalScale, _scaleSpeed);
+           transform.localScale = Vector3.Lerp(transform.localScale,_verticalScale, _scaleSpeed * Time.deltaTime);
         }
         else if (MousePosY < 0 && IsGrab)
         {
-           transform.localScale = Vector3.Lerp(transform.localScale, _horizontalScale, _scaleSpeed);
+           transform.localScale = Vector3.Lerp(transform.localScale, _horizontalScale, _scaleSpeed * Time.deltaTime);
 
         }
     }
